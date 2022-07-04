@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Youtube.com Clone</title>
+        <meta charset="UTF-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <!--youtube--> 
+
+        <!--block element take = takes up the entire line -->
+        <!--inline-block element = only takes up as much space as needed-->
+        <!--inline element(text element) = appear within a line of text-->
+        <style>
+        body {
+            margin: 0;
+            padding-top: 80px;
+            padding-left: 96px;
+            padding-right: 24px;
+            background-color: rgb(243, 243, 243);
+        }
+        .search-box {
+            display: block;
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 16px;
+            row-gap: 40px;
+        }
+
+        @media (max-width: 750px) {
+            .video-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (min-width: 751px) and (max-width: 999px) {
+            .video-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        @media (min-width: 1000px) {
+            .video-grid {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+        }
+     
+        .thumbnail {
+            width: 100%;
+        }
+        .channal-grid {
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            column-gap: 10px;
+            row-gap: 40px;
+        }
+        .thumbnail {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .channal-pic {
+            display: inline-block;
+            width: 50px;
+            vertical-align: top;
+        }
+        .channal-info {
+            display: inline-block;
+            width: 200px;
+        }
+        .profile-pic {
+            width: 40px;
+            border-radius: 50px;
+        }
+        .video-title {
+            margin-top: 0px;
+            font-size: 14px;
+            line-height: 20px;
+            font-weight: 700;
+        }
+        .video-author, .video-stats {
+            font-size: 12px;
+            color: rgb(96,96,96);
+            display: block;
+        }
+        .video-author {
+            line-height: 4px;
+            margin-bottom: 6px;
+        }
+        .video-stats {
+            margin-top: 2px;
+        }
+        p {
+            font-family: Roboto, Arial;
+        }
+        .header {
+            height: 55px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: rgb(235, 232, 232) ;
+            z-index: 100;
+
+        }
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+        .hamburger-menu {
+            height: 24px;
+            margin-left: 24px;
+            margin-right: 20px;
+        }
+        .youtube-logo {
+            height: 20px;
+        }
+        .middle-section {
+            display: flex;
+            flex: 1;
+            margin-left: 70px;
+            margin-right: 35px;
+            max-width: 500px;
+            align-items: center;
+        }
+        .search-button {
+            height: 38px;
+            width: 66px;
+            background-color: rgb(240, 240, 240);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(192, 192, 192);
+            margin-left: -1px;
+            margin-right: 10px;
+            position: relative;
+            transition: opacity 0.1s;
+        }
+        .search-button:hover .tooltip{
+            opacity: 1;
+        }
+        .search-button .tooltip {
+            position: absolute;
+            background-color: gray;
+            color: white;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-right: 4px;
+            padding-left: 4px;
+            border-radius: 2px;
+            font-size: 12px;
+            bottom: -30px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .voice-search-button {
+            height: 40px;
+            width: 40px;
+            border-radius: 20px;
+            border: none;
+            background-color: rgb(245, 245, 245);
+        }
+        .search-bar {
+            flex: 1;
+            height: 34px;
+            padding-left: 12px;
+            font-size: 16px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(192, 192, 192);
+            border-radius: 2px;
+            box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.05);
+            width: 0;
+        }
+        .search-bar::placeholder {
+            font-family: Roboto, Arial;
+            font-size: 16px;
+        }
+        .search {
+            height: 25px;
+            margin-top: 2px;
+        }
+        .voice-search-img {
+            height: 24px;
+            margin-top: 4px;
+        }
+        .right-session {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+        .upload {
+            height: 24px;
+        }
+        .notifications {
+            height: 24px;
+        }
+        .notification-icon-container {
+            position: relative;
+
+        }
+        .notification-count {
+            position: absolute;
+            top: -2px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            font-family: Roboto, Arial;
+            font-size: 11px;
+            padding-top: 2px;
+            padding-left: 6px;
+            padding-bottom: 2px;
+            padding-right: 6px;
+            border-radius: 10px;
+
+        }
+        .youtube-app {
+            height: 24px;
+        }
+        .channel-icon {
+            height: 32px;
+            border-radius: 16px;
+        }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            top: 55px;
+            background-color: white;
+            width: 72px;
+        }
+
+        .thumbnail-row {
+            margin-bottom: 12px;
+            position: relative;
+            bottom: 8px;
+            right: 5px;
+        }
+        .video-time {
+            background-color: black;
+            color: white;
+            position: absolute;
+            font-family: Roboto, Arial;
+            font-weight: 500;
+            font-size: 12px;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            border-radius: 2px;
+            right: 25px;
+            bottom: 30px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            top: 55px;
+            background-color: white;
+            width: 72px;
+            z-index: 200;
+            padding-top: 5px;
+        }
+
+        .sidebar-link {
+            height: 74px;
+            margin-bottom: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+       .sidebar-link:hover {
+            background-color: lightgray;
+       }
+       .sidebar-link img {
+        height: 24px;
+        margin-bottom: 4px;
+
+       }
+       .sidebar-link div {
+        font-family: Roboto, Arial;
+        font-size: 10px;
+
+       }
+        </style>
+    <!--justify-content: space-between; means how to display the blocks in a line -->
+
+        <div class="header">
+            <div class="left-section">
+                <img class="hamburger-menu" src="icon/hamburger-menu.svg">
+                <img class="youtube-logo" src="icon/youtube-logo.svg">
+            </div>
+            <div class="middle-section">
+                <input class="search-bar" type="text" placeholder="Search">
+                <button class="search-button">
+                    <img class="search" src="icon/search.svg">
+                    <div class="tooltip">Search</div>
+                </button>
+                <button class="voice-search-button">
+                    <img class="voice-search-img" src="icon/voice-search-icon.svg">
+                </button>
+            </div>
+            <div class="right-session">
+                <img class="upload" src="icon/upload.svg">
+                <img class="youtube-app" src="icon/youtube-apps.svg">
+                <div class="notification-icon-container">
+                    <img class="notifications" src="icon/notifications.svg">
+                    <div class="notification-count">3</div>
+                </div>
+                <img class="channel-icon" src="icon/channel-icon.png">
+            </div>
+        </div>
+
+        <div class="sidebar">
+           <div class="sidebar-link">
+            <img src="sidebar/home.svg">
+            <div>Home</div>
+           </div>
+           <div class="sidebar-link">
+            <img src="sidebar/explore.svg">
+            <div>Explore</div>
+           </div>
+           <div class="sidebar-link">
+            <img src="sidebar/subscriptions.svg">
+            <div>Subscriptions</div>
+           </div>
+           <div class="sidebar-link">
+            <img src="sidebar/originals.svg">
+            <div>Originals</div>
+           </div>
+           <div class="sidebar-link">
+            <img src="sidebar/originals.svg">
+            <div>Originals</div>
+           </div>
+           <div class="sidebar-link">
+            <img src="sidebar/library.svg">
+            <div>Library</div>
+           </div>
+        </div>
+
+        <!--there are two types of layout：horizantal & vertical-->
+        <!--for vertical layout, creates 2 <div>-->
+        <main>
+            <div class="video-grid">
+                <div class="video-preview"> 
+                    <div class="thumbnail-row">
+                        <img class="thumbnail" src="thumbnail.jpg">
+                        <div class="video-time">
+                            4:58
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="AUTHOR1.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                BTS (방탄소년단) 'Make It Right (feat. Lauv)' Official MV
+                            </p>
+                            <p class="video-author">
+                                HYBE LABELS
+                            </p>
+                            <p class="video-stats">
+                                18M views &#183;3 years ago
+                            </p>
+                        </div>
+                    </div>    
+                </div> 
+
+                <div class="video-preview">
+                    <div class="thumbnail-row">  
+                        <img class="thumbnail" src="thumbnail2.jpg">
+                        <div class="video-time">
+                            14:20 
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="author2.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                Dive - Hot Shade (Lyrics)
+                            </p>
+                            <p class="video-author">
+                            Colorful Sounds
+                            </p>
+                            <p class="video-stats">
+                                1.6K views &#183; 1 day ago
+                            </p> 
+                        </div>
+                        
+                    </div>
+                </div>  
+                
+                <div class="video-preview"> 
+                    <div class="thumbnail-row">
+                        <img class="thumbnail" src="thumbnail3.webp">
+                        <div class="video-time">
+                            6:15
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="author3.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                Lauv - Kids Are Born Stars [Official Trailer]
+                            </p>
+                            <p class="video-author">
+                                Lauv
+                            </p>
+                            <p class="video-stats">
+                                15K views &#183;4 hours ago
+                            </p>
+                        </div>
+                    </div>    
+                </div> 
+
+                <div class="video-preview">
+                    <div class="thumbnail-row">  
+                        <img class="thumbnail" src="thumbnail4.jpg">
+                        <div class="video-time">
+                            6:58
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="author4.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                The Weeknd - Call Out My Name (Official Video)
+                            </p>
+                            <p class="video-author">
+                                The Weeknd
+                            </p>
+                            <p class="video-stats">
+                                761M views &#183; 4 years ago
+                            </p> 
+                        </div>
+                        
+                    </div>
+                </div>    	
+
+                <div class="video-preview"> 
+                    <div class="thumbnail-row">
+                        <img class="thumbnail" src="thumbnail6.jpg">
+                        <div class="video-time">
+                            3:54
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="author6.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                Rezz - Taste of You (Official Video) ft. Dove Cameron
+                            </p>
+                            <p class="video-author">
+                                REZZ
+                            </p>
+                            <p class="video-stats">
+                                5.4M views &#183;1 years ago
+                            </p>
+                        </div>
+                    </div>    
+                </div> 
+
+                <div class="video-preview">
+                    <div class="thumbnail-row">  
+                        <img class="thumbnail" src="thumbnail5.jpg">
+                        <div class="video-time">
+                            4:16
+                        </div>
+                    </div>
+                    <div class="channal-grid">
+                        <div class="channal-pic">
+                            <img class="profile-pic" src="author5.jpg">
+                        </div>
+                        <div class="channal-info">
+                            <p class="video-title">
+                                Juice WRLD - Real Love [Prod.RockyRoadz]
+                            </p>
+                            <p class="video-author">
+                                Prod. RockyRoadz
+                            </p>
+                            <p class="video-stats">
+                                656K views &#183; 3 months ago
+                            </p> 
+                        </div>
+                        
+                    </div>
+                </div>    	
+            </div>
+        </main>
+    </body>
+
+</html>
